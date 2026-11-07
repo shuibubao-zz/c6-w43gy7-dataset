@@ -1,0 +1,179 @@
+{
+  "_meta": {
+    "description": "C6A 提交数据仪表盘 —— 挑战必填文件口径（单一权威来源）。扫描器 scan_submissions.py 与生成器 gen_sample_submissions.py 都读这份文件，保证口径一致。",
+    "naming_convention": "<学生姓名>_<挑战编号>_<后缀>.<扩展名>（目录型交付物用 <学生姓名>_<挑战编号>_<标记>/ 表示，kind=dir）",
+    "caliber_notes": {
+      "completeness": "completeness = 必填文件已交数 / 必填文件总数（不含任何选填项）",
+      "status": "complete=全部必填在场；partial=部分必填在场；missing=0 个必填在场（含完全未提交）",
+      "level_achieved": "文件齐备度近似：complete→4；completeness≥0.75→3；≥0.5→2；>0→1；0→0。不等同真实质量评级。",
+      "review": "C4A 集成初筛（仅文件名级）：命名合规 + AI日志在场 + 核心产出在场 → 通过；否则'需补X'。非 C4A 完整人工评审。",
+      "submitted_at": "取自文件 mtime（真实可复现）；合成样本由生成器写入模拟提交时间。"
+    }
+  },
+  "challenges": {
+    "C2A": {
+      "title": "AGI 认知能力基准提案",
+      "required_files": [
+        {"pattern": "*_C2A_方案设计.md", "label": "方案设计", "required": true, "core": true},
+        {"pattern": "*_C2A_AI日志.md", "label": "AI日志", "required": true, "is_ai_log": true}
+      ],
+      "levels": [
+        {"level": 1, "description": "明确 Track 与选题"},
+        {"level": 2, "description": "完整提案 + 元认知维度"},
+        {"level": 3, "description": "可复现基准 + 评测协议"},
+        {"level": 4, "description": "完整系统 + 跨模型对比"}
+      ]
+    },
+    "C2G": {
+      "title": "参数高尔夫",
+      "required_files": [
+        {"pattern": "*_C2G_方案设计.md", "label": "方案设计", "required": true, "core": true},
+        {"pattern": "*_C2G_AI日志.md", "label": "AI日志", "required": true, "is_ai_log": true},
+        {"pattern": "*_C2G_验证报告.md", "label": "验证报告", "required": true}
+      ],
+      "levels": [
+        {"level": 1, "description": "跑通 baseline"},
+        {"level": 2, "description": "参数搜索"},
+        {"level": 3, "description": "拐点标定"},
+        {"level": 4, "description": "完整报告 + 复现"}
+      ]
+    },
+    "C3": {
+      "title": "群内参与",
+      "required_files": [
+        {"pattern": "*_C3_AI日志.md", "label": "AI日志", "required": true, "is_ai_log": true}
+      ],
+      "levels": [
+        {"level": 1, "description": "参与并发言"},
+        {"level": 2, "description": "形成有效讨论"},
+        {"level": 3, "description": "带动话题"},
+        {"level": 4, "description": "沉淀为群组资产"}
+      ]
+    },
+    "C4A": {
+      "title": "技能提交自动评审器",
+      "required_files": [
+        {"pattern": "*_C4A_*.skill", "label": "技能包", "required": true, "core": true},
+        {"pattern": "*_C4A_AI日志.md", "label": "AI日志", "required": true, "is_ai_log": true},
+        {"pattern": "*_C4A_拿来说明.md", "label": "拿来说明", "required": true},
+        {"pattern": "*_C4A_验证报告.md", "label": "验证报告", "required": true}
+      ],
+      "levels": [
+        {"level": 1, "description": "单文件评审"},
+        {"level": 2, "description": "多维度检查"},
+        {"level": 3, "description": "自动化自检"},
+        {"level": 4, "description": "完整系统 + 外部复核"}
+      ]
+    },
+    "C4B": {
+      "title": "公众号文章生成技能",
+      "required_files": [
+        {"pattern": "*_C4B_article.html", "label": "成稿HTML", "required": true, "core": true},
+        {"pattern": "*_C4B_AI日志.md", "label": "AI日志", "required": true, "is_ai_log": true},
+        {"pattern": "*_C4B_拿来说明.md", "label": "拿来说明", "required": true}
+      ],
+      "levels": [
+        {"level": 1, "description": "单篇成稿"},
+        {"level": 2, "description": "技能化 + 配图"},
+        {"level": 3, "description": "真实发布"},
+        {"level": 4, "description": "完整技能 + 复核"}
+      ]
+    },
+    "C4C": {
+      "title": "作业自动求解与排版",
+      "required_files": [
+        {"pattern": "*_C4C_homework-solver.skill", "label": "技能包", "required": true, "core": true},
+        {"pattern": "*_C4C_方案设计.md", "label": "方案设计", "required": true},
+        {"pattern": "*_C4C_output.pdf", "label": "输出PDF", "required": true, "core": true},
+        {"pattern": "*_C4C_验证报告.md", "label": "验证报告", "required": true},
+        {"pattern": "*_C4C_教学说明.md", "label": "教学说明", "required": true},
+        {"pattern": "*_C4C_AI日志.md", "label": "AI日志", "required": true, "is_ai_log": true},
+        {"pattern": "*_C4C_拿来说明.md", "label": "拿来说明", "required": true}
+      ],
+      "levels": [
+        {"level": 1, "description": "跑通 starter"},
+        {"level": 2, "description": "扩展输入格式"},
+        {"level": 3, "description": "真实作业正确PDF"},
+        {"level": 4, "description": "完整系统 + 模型对比"}
+      ]
+    },
+    "C4D": {
+      "title": "课程知识库构建",
+      "required_files": [
+        {"pattern": "*_C4D_方案设计.md", "label": "方案设计", "required": true, "core": true},
+        {"pattern": "*_C4D_AI日志.md", "label": "AI日志", "required": true, "is_ai_log": true},
+        {"pattern": "*_C4D_核心产出.md", "label": "核心产出", "required": true, "core": true}
+      ],
+      "levels": [
+        {"level": 1, "description": "知识库骨架"},
+        {"level": 2, "description": "结构化录入"},
+        {"level": 3, "description": "可检索"},
+        {"level": 4, "description": "完整系统"}
+      ]
+    },
+    "C5": {
+      "title": "GitHub 仓库（技能开源）",
+      "required_files": [
+        {"pattern": "*_C5_README.md", "label": "README", "required": true, "core": true},
+        {"pattern": "*_C5_AI日志.md", "label": "AI日志", "required": true, "is_ai_log": true},
+        {"pattern": "*_C5_拿来说明.md", "label": "拿来说明", "required": true},
+        {"pattern": "*_C5_repo链接.md", "label": "repo链接", "required": true}
+      ],
+      "levels": [
+        {"level": 1, "description": "建仓 + README"},
+        {"level": 2, "description": "完整文档"},
+        {"level": 3, "description": "社区要素 + CI"},
+        {"level": 4, "description": "开源协作闭环"}
+      ]
+    },
+    "C5A": {
+      "title": "GitHub 入门与仓库理解",
+      "required_files": [
+        {"pattern": "*_C5A_仓库分析.md", "label": "仓库分析", "required": true, "core": true},
+        {"pattern": "*_C5A_AI日志.md", "label": "AI日志", "required": true, "is_ai_log": true},
+        {"pattern": "*_C5A_repo链接.md", "label": "repo链接", "required": true},
+        {"pattern": "*_C5A_screenshots", "label": "截图", "required": true, "kind": "dir"}
+      ],
+      "levels": [
+        {"level": 1, "description": "注册 + Fork"},
+        {"level": 2, "description": "读懂仓库"},
+        {"level": 3, "description": "贡献 PR"},
+        {"level": 4, "description": "完整复盘"}
+      ]
+    },
+    "C6": {
+      "title": "Web 应用",
+      "required_files": [
+        {"pattern": "*_C6_index.html", "label": "应用入口", "required": true, "core": true},
+        {"pattern": "*_C6_AI日志.md", "label": "AI日志", "required": true, "is_ai_log": true},
+        {"pattern": "*_C6_demo.mp4", "label": "演示视频", "required": true},
+        {"pattern": "*_C6_拿来说明.md", "label": "拿来说明", "required": true}
+      ],
+      "levels": [
+        {"level": 1, "description": "静态页面"},
+        {"level": 2, "description": "交互功能"},
+        {"level": 3, "description": "AI 集成"},
+        {"level": 4, "description": "部署上线"}
+      ]
+    },
+    "C6A": {
+      "title": "提交数据仪表盘",
+      "required_files": [
+        {"pattern": "*_C6A_方案设计.md", "label": "方案设计", "required": true, "core": true},
+        {"pattern": "*_C6A_data", "label": "数据目录", "required": true, "kind": "dir"},
+        {"pattern": "*_C6A_dashboard", "label": "仪表盘", "required": true, "kind": "dir", "core": true},
+        {"pattern": "*_C6A_report.xlsx", "label": "Excel报表", "required": true, "core": true},
+        {"pattern": "*_C6A_教学说明.md", "label": "教学说明", "required": true},
+        {"pattern": "*_C6A_AAR.md", "label": "AAR", "required": true},
+        {"pattern": "*_C6A_AI日志.md", "label": "AI日志", "required": true, "is_ai_log": true},
+        {"pattern": "*_C6A_拿来说明.md", "label": "拿来说明", "required": true}
+      ],
+      "levels": [
+        {"level": 1, "description": "数据收集结构化"},
+        {"level": 2, "description": "Excel 报表"},
+        {"level": 3, "description": "本地网站"},
+        {"level": 4, "description": "自动化 + 实时更新"}
+      ]
+    }
+  }
+}

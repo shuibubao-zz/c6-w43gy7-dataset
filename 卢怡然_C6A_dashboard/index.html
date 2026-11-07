@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elite20 提交数据仪表盘 · C6A</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <h1>Elite20 提交数据仪表盘</h1>
+    <div class="sub">C6A · 把散落的提交变成可浏览 / 可筛选 / 可追踪的结构化看板</div>
+    <div class="badge" id="caliberBadge">数据口径：加载中…</div>
+  </header>
+
+  <div class="wrap">
+    <!-- 统计卡片 -->
+    <div class="cards" id="cards"></div>
+
+    <!-- Tab 切换 -->
+    <div class="tabs">
+      <div class="tab active" data-tab="overview">📊 总览</div>
+      <div class="tab" data-tab="students">👤 按学生</div>
+      <div class="tab" data-tab="challenges">🎯 按挑战</div>
+    </div>
+
+    <!-- 全局筛选条 -->
+    <div class="bar">
+      <input type="text" id="search" placeholder="搜索学生 / 挑战编号…">
+      <select id="statusFilter">
+        <option value="">全部状态</option>
+        <option value="complete">✅ 完整</option>
+        <option value="partial">⚠️ 部分</option>
+        <option value="missing">❌ 缺失/未提交</option>
+      </select>
+      <select id="sortBy">
+        <option value="name">排序：名称</option>
+        <option value="comp">排序：齐备率↓</option>
+        <option value="complete">排序：完整率↓</option>
+      </select>
+    </div>
+
+    <!-- 总览 -->
+    <section class="panel active" id="panel-overview">
+      <div class="grid2">
+        <div class="box">
+          <h3>全量记录状态分布（含未提交，与矩阵一致）</h3>
+          <canvas id="donut" width="320" height="220"></canvas>
+        </div>
+        <div class="box">
+          <h3>各挑战完整率（%）</h3>
+          <canvas id="bars" width="470" height="260"></canvas>
+        </div>
+      </div>
+      <div class="box" style="overflow:auto">
+        <h3>学生 × 挑战 热力矩阵（✅完整 / ⚠️部分 / ❌缺失 ）</h3>
+        <table id="matrix"></table>
+      </div>
+      <div class="box" style="margin-top:16px">
+        <h3>最近提交</h3>
+        <ul class="timeline" id="timeline"></ul>
+      </div>
+    </section>
+
+    <!-- 学生 -->
+    <section class="panel" id="panel-students">
+      <div class="list" id="stuList"></div>
+      <div id="stuDetail" style="display:none"></div>
+    </section>
+
+    <!-- 挑战 -->
+    <section class="panel" id="panel-challenges">
+      <div class="list" id="chList"></div>
+      <div id="chDetail" style="display:none"></div>
+    </section>
+
+    <footer class="note-foot" id="foot"></footer>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
